@@ -1,0 +1,24 @@
+with open('input_02.txt', 'r') as file:
+  data = [line.strip().split(' ') for line in file.readlines()]
+
+safe1 = 0
+safe2 = 0
+for line in data:
+# PART 1
+    diff = [int(line[i+1]) - int(line[i]) for i in range(len(line)-1)]
+    if (all(n < 0 for n in diff) or all(n > 0 for n in diff)) and all([1 <= abs(n) <= 3 for n in diff]):
+      safe1 += 1
+# PART 2
+      safe2 += 1
+    else:
+      for j in range(len(line)):
+        gap = line.pop(j)
+        diff = [int(line[i+1]) - int(line[i]) for i in range(len(line)-1)]
+        if (all(n < 0 for n in diff) or all(n > 0 for n in diff)) and all(1 <= abs(n) <= 3 for n in diff):
+          safe2 += 1
+          break
+        else:
+          line.insert(j, gap)
+
+print(safe1)
+print(safe2)

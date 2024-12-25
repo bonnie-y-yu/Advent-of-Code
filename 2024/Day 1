@@ -1,0 +1,25 @@
+file = open('input_01.txt', 'r')
+data = [line.strip().split('   ') for line in file.readlines()]
+file.close()
+
+a = [0] * len(data)
+b = [0] * len(data)
+
+for i, line in enumerate(data):
+  a[i], b[i] = map(int, line)
+
+# PART 1
+a.sort(), b.sort()
+
+dist = 0
+for i in range(len(data)):
+  dist += abs( a[i] - b[i] )
+
+print(dist)
+
+# PART 2
+score = 0
+for n in a:
+  score += n * b.count(n)
+
+print(score)
